@@ -14,18 +14,18 @@ Fiber optics - the invisible threads connecting our digital world - are the arte
 
 ![image](opticfiber.jpg)
 
-## The Indispensable Nature of Fiber Optics: 
+## The Indispensable Nature of Fiber Optics
 
 The role of fiber optics extends beyond communication; It is foundational to the data infrastructure that supports our analytical endeavors. Without the clarity and speed they offer, the big data revolution would falter. 
 
-## The Global Web of Communication: 
+## The Global Web of Communication
 
 Our analysis begins with the acknowledgement of fiber optics' critical role. These fibers carry more than data; they trasmit opportunities, education, and innovation across oceans with the speed of light. 
 
-## The Challenge Ahead: Ensuring Fiber Health: 
+## The Challenge Ahead: Ensuring Fiber Health
 From a data scientist's perspective, the integrity of these data highways is paramount. A loss average exceeding 3.0dB is not just a number; It signifies potential disruption in the data flow that powers our analyses, models, and predictions. 
 
-## Showcasing Power BI Proficiency in Data Cleaning: 
+## Showcasing Power BI Proficiency in Data Cleaning
 In the language of data science, raw data is the ore from which insights are extracted. Using Power BI, I undertook the following meticulous steps to refine this ore: 
 
 ### Step 1: Importing Data
