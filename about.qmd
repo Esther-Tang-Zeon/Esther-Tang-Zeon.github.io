@@ -3,6 +3,7 @@ title: "About"
 image: profile.jpg
 about:
   template: jolla
+  image-shape: round
   links:
     - icon: twitter
       text: Twitter
