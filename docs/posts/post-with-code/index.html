@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2023-09-18">
+<meta name="author" content="Esther Tang">
+<meta name="dcterms.date" content="2023-11-12">
 
-<title>move - Post With Code</title>
+<title>Home - Esther’s First Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">move</span>
+    <span class="navbar-title">Home</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -88,12 +88,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/esthertangz/esthertangz.github.io" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/esther-zeonee-tang/" rel="" target=""><i class="bi bi-linkedin" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Esther’s First Blog</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">news</div>
                 <div class="quarto-category">code</div>
@@ -123,14 +123,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Esther Tang </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 18, 2023</p>
+        <p class="date">November 12, 2023</p>
       </div>
     </div>
     
@@ -148,9 +148,105 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<section id="fiber-optics-the-invisible-threads-connecting-our-world" class="level1">
+<h1>Fiber Optics: The Invisible Threads Connecting Our World</h1>
+<section id="introduction-to-fiber-optics" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-fiber-optics">Introduction to Fiber Optics</h2>
+<p>Fiber optics - the invisible threads connecting our digital world - are the arteries of global communication. These hair-thin fibers carry the pulse of the data, voice, and images with astonishing speed and fidelity.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="opticfiber.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-indispensable-nature-of-fiber-optics" class="level2">
+<h2 class="anchored" data-anchor-id="the-indispensable-nature-of-fiber-optics">The Indispensable Nature of Fiber Optics:</h2>
+<p>The role of fiber optics extends beyond communication; It is foundational to the data infrastructure that supports our analytical endeavors. Without the clarity and speed they offer, the big data revoluation would falter.</p>
+</section>
+<section id="the-global-web-of-communication" class="level2">
+<h2 class="anchored" data-anchor-id="the-global-web-of-communication">The Global Web of Communication:</h2>
+<p>Our analysis begins with the acknowledgement of fiber optics’ critical role. These fibers carry more than data; they trasmit opportunities, education, and innovation across oceans with the speed of light.</p>
+</section>
+<section id="the-challenge-ahead-ensuring-fiber-health" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge-ahead-ensuring-fiber-health">The Challenge Ahead: Ensuring Fiber Health:</h2>
+<p>From a data scientist’s perspective, the integrity of these data highways is paramount. A loss average exceeding 3.0dB is not just a number; It signifies potential disruption in the data flow that powers our analyses, models, and predictions.</p>
+</section>
+<section id="showcasing-power-bi-proficiency-in-data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="showcasing-power-bi-proficiency-in-data-cleaning">Showcasing Power BI Proficiency in Data Cleaning:</h2>
+<p>In the language of data science, raw data is the ore from which insights are extracted. Using Power BI, I undertook the following meticulous steps to refine this ore:</p>
+<section id="step-1-importing-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-importing-data">Step 1: Importing Data</h3>
+<p><code>Source{[Item="OLTS Report",Kind="Sheet"]}[Data]</code> This step imports the OLTS Report sheet data into Power BI. Here, initial inspection reveals two null rows that will need addressing later in the cleaning process.</p>
+</section>
+<section id="step-2-setting-column-data-types" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-setting-column-data-types">Step 2: Setting Column Data Types</h3>
+<p><code>Table.TransformColumnTypes(#"OLTS Report_Sheet", {...})</code> Assigns the correct data type to each column of the table. This is crucial as it ensures that calculations and further data manipulations are performed correctly.</p>
+</section>
+<section id="step-3-promoting-headers" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-promoting-headers">Step 3: Promoting Headers</h3>
+<p><code>Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true])</code> Converts the first row of the dataset into column headers. This step is essential for turning a range of data into a structured table that Power BI can work with effectively.</p>
+</section>
+<section id="step-4-removing-top-rows" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-removing-top-rows">Step 4: Removing Top Rows</h3>
+<p><code>Table.Skip(#"Promoted Headers",14)</code> Skips the first 14 rows, which are often metadata or formatting that are not relevant to the actual data analysis.</p>
+</section>
+<section id="step-5-re-promoting-headers" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-re-promoting-headers">Step 5: Re-Promoting Headers</h3>
+<p><code>Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true])</code> After removing the top rows, this step re-establishes the first row of the remaining dataset as headers, which may have shifted due to the previous steps.</p>
+</section>
+<section id="step-6-filling-down-identifiers" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-filling-down-identifiers">Step 6: Filling Down Identifiers</h3>
+<p><code>Table.FillDown(#"Promoted Headers1",{"Identifier"})</code> Ensures that all rows within a particular segment have consistent identifiers, filling down the value from the first row of the segment throughout its rows.</p>
+</section>
+<section id="step-7-filtering-rows" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-filtering-rows">Step 7: Filtering Rows</h3>
+<p><code>Table.SelectRows(#"Filled Down", each ([Identifier] &lt;&gt; ...))</code> Removes rows based on the content of the Identifier column, filtering out rows with specific text like “Default” or “Loopback” that are not needed for analysis.</p>
+</section>
+<section id="step-8-removing-columns" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-removing-columns">Step 8: Removing Columns</h3>
+<p><code>Table.RemoveColumns(#"Filtered Rows",{"Column2"})</code> Removes unnecessary columns from the dataset, in this case, “Column2”, which may contain redundant or irrelevant information.</p>
+</section>
+<section id="step-9-selecting-relevant-columns" class="level3">
+<h3 class="anchored" data-anchor-id="step-9-selecting-relevant-columns">Step 9: Selecting Relevant Columns</h3>
+<p><code>Table.SelectColumns(#"Removed Columns",{"Identifier", "Wave-#(lf)length #(lf)(nm)", ...})</code> Narrows down the dataset to only include columns that are relevant for the analysis.</p>
+</section>
+<section id="step-10-filling-down-datetime" class="level3">
+<h3 class="anchored" data-anchor-id="step-10-filling-down-datetime">Step 10: Filling Down Date/Time</h3>
+<p><code>Table.FillDown(#"Removed Other Columns",{"Date/Time"})</code> Applies the ‘fill down’ operation to the Date/Time column to ensure that all entries within a segment have the correct timestamp.</p>
+</section>
+<section id="step-11-transforming-datetime-column-types" class="level3">
+<h3 class="anchored" data-anchor-id="step-11-transforming-datetime-column-types">Step 11: Transforming Date/Time Column Types</h3>
+<p><code>Table.TransformColumnTypes(#"Filled Down1",{{"Date/Time", type datetime}})</code> Converts the Date/Time column to the datetime data type to enable time-based analysis.</p>
+</section>
+<section id="step-12-filtering-specific-rows" class="level3">
+<h3 class="anchored" data-anchor-id="step-12-filtering-specific-rows">Step 12: Filtering Specific Rows</h3>
+<p><code>Table.SelectRows(#"Changed Type1", each ([Identifier] &lt;&gt; "1310" and [Identifier] &lt;&gt; "1550"))</code> Excludes rows with the identifiers “1310” and “1550” if these rows do not contain data relevant to the analysis.</p>
+</section>
+<section id="step-13-removing-last-row" class="level3">
+<h3 class="anchored" data-anchor-id="step-13-removing-last-row">Step 13: Removing Last Row</h3>
+<p><code>Table.RemoveLastN(#"Filtered Rows1",1)</code> Removes the last row of the dataset, which often contains totals or summary data not needed for individual data point analysis.</p>
+</section>
+<section id="step-14-final-column-removal" class="level3">
+<h3 class="anchored" data-anchor-id="step-14-final-column-removal">Step 14: Final Column Removal</h3>
+<p><code>Table.RemoveColumns(#"Removed Bottom Rows",{"Column12"})</code> Eliminates the last unnecessary column, further refining the dataset.</p>
+</section>
+<section id="step-15-transforming-numeric-column-types" class="level3">
+<h3 class="anchored" data-anchor-id="step-15-transforming-numeric-column-types">Step 15: Transforming Numeric Column Types</h3>
+<p><code>Table.TransformColumnTypes(#"Removed Columns1", {...})</code> Ensures all columns that contain numeric values are set to the correct numeric data type, which is essential for accurate calculations.</p>
+</section>
+<section id="step-16-adding-cable-number-column" class="level3">
+<h3 class="anchored" data-anchor-id="step-16-adding-cable-number-column">Step 16: Adding Cable Number Column</h3>
+<p><code>Table.AddColumn(#"Changed Type2", "CableNumber", each Number.FromText(Text.AfterDelimiter([Identifier], "Cable_Fiber")))</code> Adds a new column that extracts the cable number from the Identifier column, which is a key step for categorizing and segmenting the data.</p>
+</section>
+<section id="step-17-transforming-cable-number-column-type" class="level3">
+<h3 class="anchored" data-anchor-id="step-17-transforming-cable-number-column-type">Step 17: Transforming Cable Number Column Type</h3>
+<p><code>Table.TransformColumnTypes(#"Added Custom",{{"CableNumber", Int64.Type}})</code> Converts the newly added CableNumber column into an integer data type, which allows for numerical operations to be performed on it.</p>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
