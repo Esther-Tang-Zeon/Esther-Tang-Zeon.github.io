@@ -148,104 +148,95 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="fiber-optics-the-invisible-threads-connecting-our-world" class="level1">
-<h1>Fiber Optics: The Invisible Threads Connecting Our World</h1>
-<section id="introduction-to-fiber-optics" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-fiber-optics">Introduction to Fiber Optics</h2>
-<p>Fiber optics - the invisible threads connecting our digital world - are the arteries of global communication. These hair-thin fibers carry the pulse of the data, voice, and images with astonishing speed and fidelity.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="opticfiber.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image</figcaption>
-</figure>
-</div>
+<section id="decoding-fiber-optic-data-a-power-bi-cleansing-story" class="level1">
+<h1>Decoding Fiber Optic Data: A Power BI Cleansing Story</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><img src="opticfiber.jpg" class="img-fluid"></p>
+<p>In the world of data science, the cleanliness of your dataset can mean the difference clarity and confusion. Today, let’s look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let’s walk through the steps taken to achieve a pristine dataset ready for insightful analysis.</p>
 </section>
-<section id="the-indispensable-nature-of-fiber-optics" class="level2">
-<h2 class="anchored" data-anchor-id="the-indispensable-nature-of-fiber-optics">The Indispensable Nature of Fiber Optics</h2>
-<p>The role of fiber optics extends beyond communication; It is foundational to the data infrastructure that supports our analytical endeavors. Without the clarity and speed they offer, the big data revolution would falter.</p>
+<section id="step-1-importing-the-workbook-into-power-bi" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-importing-the-workbook-into-power-bi">Step 1: Importing the Workbook into Power BI</h2>
+<p>The first step is to bring our data into the Power BI environment. We do this by importing the Excel workbook that contains our fiber optic test data. This is done using the <code>Excel.Workbook</code> function, which takes the file path as a parameter and loads the content.</p>
+<p><code>= Excel.Workbook(File.Contents("C:\Users\zeony\Downloads\Vlad Fast Report\REFX07 Cable_ Fiber100.xlsm"), null, true)</code></p>
+<p><img src="1.png" class="img-fluid"></p>
+<p>This function navigates to the specified file path, reads the contents of the workbook, and imports the data, setting the stage for the next steps.</p>
 </section>
-<section id="the-global-web-of-communication" class="level2">
-<h2 class="anchored" data-anchor-id="the-global-web-of-communication">The Global Web of Communication</h2>
-<p>Our analysis begins with the acknowledgement of fiber optics’ critical role. These fibers carry more than data; they trasmit opportunities, education, and innovation across oceans with the speed of light.</p>
+<section id="step-2-selecting-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-selecting-the-data">Step 2: Selecting the Data</h2>
+<p>Next, we locate and select the specific sheet named <code>OLTS Report</code> that contains the data we want to analyze. The data is raw at this point, containing all the information from the sheet.</p>
+<p><code>= Source{[Item="OLTS Report",Kind="Sheet"]}[Data]</code></p>
+<p><img src="2.png" class="img-fluid"></p>
+<p>The snippet accesses the <code>OLTS Report</code> sheet within the workbook and extracts all the data from it.</p>
 </section>
-<section id="the-challenge-ahead-ensuring-fiber-health" class="level2">
-<h2 class="anchored" data-anchor-id="the-challenge-ahead-ensuring-fiber-health">The Challenge Ahead: Ensuring Fiber Health</h2>
-<p>From a data scientist’s perspective, the integrity of these data highways is paramount. A loss average exceeding 3.0dB is not just a number; It signifies potential disruption in the data flow that powers our analyses, models, and predictions.</p>
+<section id="step-3-skipping-unneeded-rows" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-skipping-unneeded-rows">Step 3: Skipping Unneeded Rows</h2>
+<p>Our raw data inclused headers and metadata that aren’t necessary for analysis. We remove these by skipping the first 15 rows.</p>
+<p><code>= Table.Skip(#"OLTS Report_Sheet",15)</code></p>
+<p><img src="3.png" class="img-fluid"></p>
+<p>The <code>Table.Skip</code> function is used to bypass the first 15 rows of the dataset, which helps in focusing on the data that is actually needed.</p>
 </section>
-<section id="showcasing-power-bi-proficiency-in-data-cleaning" class="level2">
-<h2 class="anchored" data-anchor-id="showcasing-power-bi-proficiency-in-data-cleaning">Showcasing Power BI Proficiency in Data Cleaning</h2>
-<p>In the language of data science, raw data is the ore from which insights are extracted. Using Power BI, I undertook the following meticulous steps to refine this ore:</p>
-<section id="step-1-importing-data" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-importing-data">Step 1: Importing Data</h3>
-<p><code>Source{[Item="OLTS Report",Kind="Sheet"]}[Data]</code> This step imports the OLTS Report sheet data into Power BI. Here, initial inspection reveals two null rows that will need addressing later in the cleaning process.</p>
+<section id="step-4-establishing-headers" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-establishing-headers">Step 4: Establishing Headers</h2>
+<p>For our data to be properly organized, we need to promote the first row of our dataset to serve as the headers for our table.</p>
+<p><code>= Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true])</code></p>
+<p><img src="4.png" class="img-fluid"></p>
+<p>The <code>Table.PromoteHeaders</code> function converts the first row of our adjusted dataset into column headers, giving us a clear, labeled structure to work with.</p>
 </section>
-<section id="step-2-setting-column-data-types" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-setting-column-data-types">Step 2: Setting Column Data Types</h3>
-<p><code>Table.TransformColumnTypes(#"OLTS Report_Sheet", {...})</code> Assigns the correct data type to each column of the table. This is crucial as it ensures that calculations and further data manipulations are performed correctly.</p>
+<section id="step-5-selecting-relevant-columns" class="level2">
+<h2 class="anchored" data-anchor-id="step-5-selecting-relevant-columns">Step 5: Selecting Relevant Columns</h2>
+<p>To streamline our dataset, we select only the columns that are necessary for our analysis, removing any extraneous information.</p>
+<p><code>= Table.SelectColumns(#"Promoted Headers",{"Identifier", "Wave-#(lf)length #(lf)(nm)", " Loss Average (dB)", "Loss Margin#(lf)(dB)", "Loss #(lf)A-&gt;B#(lf) (dB)", "Loss #(lf)B-&gt;A #(lf)(dB)", "ORL#(lf) A#(lf) (dB)", "ORL#(lf) B#(lf)(dB)", "Length #(lf)#(lf)(ft)", "Date/Time"})</code></p>
+<p><img src="5.png" class="img-fluid"></p>
+<p>The Table.SelectColumns function allows us to specify exactly which columns to retain in our dataset, ensuring that we’re working only with data that’s relevant to our analysis goals.</p>
 </section>
-<section id="step-3-promoting-headers" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-promoting-headers">Step 3: Promoting Headers</h3>
-<p><code>Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true])</code> Converts the first row of the dataset into column headers. This step is essential for turning a range of data into a structured table that Power BI can work with effectively.</p>
+<section id="step-6-filling-down-identifiers" class="level2">
+<h2 class="anchored" data-anchor-id="step-6-filling-down-identifiers">Step 6: Filling Down Identifiers</h2>
+<p>In some cases, our dataset may have missing values that can be inferred from the data above. We use the Table.FillDown function to fill these gaps.</p>
+<p><code>= Table.FillDown(#"Removed Other Columns",{"Identifier", "Date/Time"})</code></p>
+<p><img src="6.png" class="img-fluid"></p>
+<p>This function ensures that for any missing entries in the <code>Identifier</code> and <code>Date/Time</code> columns, the value from the previous row is carried down.</p>
 </section>
-<section id="step-4-removing-top-rows" class="level3">
-<h3 class="anchored" data-anchor-id="step-4-removing-top-rows">Step 4: Removing Top Rows</h3>
-<p><code>Table.Skip(#"Promoted Headers",14)</code> Skips the first 14 rows, which are often metadata or formatting that are not relevant to the actual data analysis.</p>
+<section id="step-7-filtering-out-irrelevant-rows" class="level2">
+<h2 class="anchored" data-anchor-id="step-7-filtering-out-irrelevant-rows">Step 7: Filtering Out Irrelevant Rows</h2>
+<p>We filter out rows with identifiers that aren’t necessary for our analysis, such as test identifiers or default values that don’t hold actual test data.</p>
+<p><code>= Table.SelectRows(#"Filled Down", each ([Identifier] &lt;&gt; 1310 and [Identifier] &lt;&gt; 1550 and [Identifier] &lt;&gt; "1310" and [Identifier] &lt;&gt; "1550" and [Identifier] &lt;&gt; "Default" and [Identifier] &lt;&gt; "Loopback" and [Identifier] &lt;&gt; "Pass/Fail Thresholds" and [Identifier] &lt;&gt; "Reference" and [Identifier] &lt;&gt; "Reference Method" and [Identifier] &lt;&gt; "Wavelength#(lf)(nm)"))</code></p>
+<p><img src="6.5.png" class="img-fluid"></p>
+<p>The Table.SelectRows function is applied with a condition that excludes rows with certain <code>Identifier</code> values, cleaning up our dataset further.</p>
 </section>
-<section id="step-5-re-promoting-headers" class="level3">
-<h3 class="anchored" data-anchor-id="step-5-re-promoting-headers">Step 5: Re-Promoting Headers</h3>
-<p><code>Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true])</code> After removing the top rows, this step re-establishes the first row of the remaining dataset as headers, which may have shifted due to the previous steps.</p>
+<section id="step-8-transforming-column-types" class="level2">
+<h2 class="anchored" data-anchor-id="step-8-transforming-column-types">Step 8: Transforming Column Types</h2>
+<p>Data types are crucial for accurate analysis. We convert the data in each column to the appropriate data type, such as text, numbers, or dates.</p>
+<p><code>= Table.TransformColumnTypes(#"Filtered Rows",{{"Identifier", type text}, {"Wave-#(lf)length #(lf)(nm)", Int64.Type}, {" Loss Average (dB)", type number}, {"Loss Margin#(lf)(dB)", type number}, {"Loss #(lf)A-&gt;B#(lf) (dB)", type number}, {"Loss #(lf)B-&gt;A #(lf)(dB)", type number}, {"ORL#(lf) A#(lf) (dB)", type number}, {"ORL#(lf) B#(lf)(dB)", type number}, {"Length #(lf)#(lf)(ft)", type number}, {"Date/Time", type datetime}})</code></p>
+<p><img src="8.png" class="img-fluid"></p>
+<p>This step ensures that each column in our dataset is treated correctly by Power BI during any subsequent operations or analyses.</p>
 </section>
-<section id="step-6-filling-down-identifiers" class="level3">
-<h3 class="anchored" data-anchor-id="step-6-filling-down-identifiers">Step 6: Filling Down Identifiers</h3>
-<p><code>Table.FillDown(#"Promoted Headers1",{"Identifier"})</code> Ensures that all rows within a particular segment have consistent identifiers, filling down the value from the first row of the segment throughout its rows.</p>
+<section id="step-9-removing-the-last-row" class="level2">
+<h2 class="anchored" data-anchor-id="step-9-removing-the-last-row">Step 9: Removing the Last Row</h2>
+<p>Sometimes, the last row of data contains summary or footer information that isn’t part of the actual dataset.</p>
+<p><code>= Table.RemoveLastN(#"Changed Type",1)</code></p>
+<p><img src="9.png" class="img-fluid"></p>
+<p>By using Table.RemoveLastN, we remove this last row from our dataset to maintain data integrity.</p>
 </section>
-<section id="step-7-filtering-rows" class="level3">
-<h3 class="anchored" data-anchor-id="step-7-filtering-rows">Step 7: Filtering Rows</h3>
-<p><code>Table.SelectRows(#"Filled Down", each ([Identifier] &lt;&gt; ...))</code> Removes rows based on the content of the Identifier column, filtering out rows with specific text like “Default” or “Loopback” that are not needed for analysis.</p>
+<section id="step-10-adding-a-cable-number-column" class="level2">
+<h2 class="anchored" data-anchor-id="step-10-adding-a-cable-number-column">Step 10: Adding a Cable Number Column</h2>
+<p>To make our analysis more granular, we add a column that uniquely identifies each fiber optic cable.</p>
+<p><code>= Table.AddColumn(#"Removed Bottom Rows", "CableNumber", each Number.FromText(Text.AfterDelimiter([Identifier], "Cable_Fiber")))</code></p>
+<p><img src="10.png" class="img-fluid"></p>
 </section>
-<section id="step-8-removing-columns" class="level3">
-<h3 class="anchored" data-anchor-id="step-8-removing-columns">Step 8: Removing Columns</h3>
-<p><code>Table.RemoveColumns(#"Filtered Rows",{"Column2"})</code> Removes unnecessary columns from the dataset, in this case, “Column2”, which may contain redundant or irrelevant information.</p>
+<section id="step-11-transforming-data-type" class="level2">
+<h2 class="anchored" data-anchor-id="step-11-transforming-data-type">Step 11: Transforming Data Type</h2>
+<p>As we wrap up this segment of our data journey in Power BI, let’s reflect on the significance of what we’ve accomplished so far. We have successfully navigated the intricate process of cleaning and structuring our fiber optic data. Particularly, by transforming the ‘CableNumber’ column to an integer data type, we’ve laid the groundwork for accurate, meaningful analyses:</p>
+<p><code>= Table.TransformColumnTypes(#"Added Custom",{{"CableNumber", Int64.Type}})</code></p>
+<p><img src="11.png" class="img-fluid"></p>
+<p>This step, while technical, is pivotal. It underscores the essence of data preparation – ensuring that each piece of data is in its most useful form. The ‘CableNumber’ column, now accurately recognized as numerical data, will serve as a key pillar in our subsequent data exploration.</p>
 </section>
-<section id="step-9-selecting-relevant-columns" class="level3">
-<h3 class="anchored" data-anchor-id="step-9-selecting-relevant-columns">Step 9: Selecting Relevant Columns</h3>
-<p><code>Table.SelectColumns(#"Removed Columns",{"Identifier", "Wave-#(lf)length #(lf)(nm)", ...})</code> Narrows down the dataset to only include columns that are relevant for the analysis.</p>
 </section>
-<section id="step-10-filling-down-datetime" class="level3">
-<h3 class="anchored" data-anchor-id="step-10-filling-down-datetime">Step 10: Filling Down Date/Time</h3>
-<p><code>Table.FillDown(#"Removed Other Columns",{"Date/Time"})</code> Applies the ‘fill down’ operation to the Date/Time column to ensure that all entries within a segment have the correct timestamp.</p>
-</section>
-<section id="step-11-transforming-datetime-column-types" class="level3">
-<h3 class="anchored" data-anchor-id="step-11-transforming-datetime-column-types">Step 11: Transforming Date/Time Column Types</h3>
-<p><code>Table.TransformColumnTypes(#"Filled Down1",{{"Date/Time", type datetime}})</code> Converts the Date/Time column to the datetime data type to enable time-based analysis.</p>
-</section>
-<section id="step-12-filtering-specific-rows" class="level3">
-<h3 class="anchored" data-anchor-id="step-12-filtering-specific-rows">Step 12: Filtering Specific Rows</h3>
-<p><code>Table.SelectRows(#"Changed Type1", each ([Identifier] &lt;&gt; "1310" and [Identifier] &lt;&gt; "1550"))</code> Excludes rows with the identifiers “1310” and “1550” if these rows do not contain data relevant to the analysis.</p>
-</section>
-<section id="step-13-removing-last-row" class="level3">
-<h3 class="anchored" data-anchor-id="step-13-removing-last-row">Step 13: Removing Last Row</h3>
-<p><code>Table.RemoveLastN(#"Filtered Rows1",1)</code> Removes the last row of the dataset, which often contains totals or summary data not needed for individual data point analysis.</p>
-</section>
-<section id="step-14-final-column-removal" class="level3">
-<h3 class="anchored" data-anchor-id="step-14-final-column-removal">Step 14: Final Column Removal</h3>
-<p><code>Table.RemoveColumns(#"Removed Bottom Rows",{"Column12"})</code> Eliminates the last unnecessary column, further refining the dataset.</p>
-</section>
-<section id="step-15-transforming-numeric-column-types" class="level3">
-<h3 class="anchored" data-anchor-id="step-15-transforming-numeric-column-types">Step 15: Transforming Numeric Column Types</h3>
-<p><code>Table.TransformColumnTypes(#"Removed Columns1", {...})</code> Ensures all columns that contain numeric values are set to the correct numeric data type, which is essential for accurate calculations.</p>
-</section>
-<section id="step-16-adding-cable-number-column" class="level3">
-<h3 class="anchored" data-anchor-id="step-16-adding-cable-number-column">Step 16: Adding Cable Number Column</h3>
-<p><code>Table.AddColumn(#"Changed Type2", "CableNumber", each Number.FromText(Text.AfterDelimiter([Identifier], "Cable_Fiber")))</code> Adds a new column that extracts the cable number from the Identifier column, which is a key step for categorizing and segmenting the data.</p>
-</section>
-<section id="step-17-transforming-cable-number-column-type" class="level3">
-<h3 class="anchored" data-anchor-id="step-17-transforming-cable-number-column-type">Step 17: Transforming Cable Number Column Type</h3>
-<p><code>Table.TransformColumnTypes(#"Added Custom",{{"CableNumber", Int64.Type}})</code> Converts the newly added CableNumber column into an integer data type, which allows for numerical operations to be performed on it.</p>
+<section id="looking-ahead-whats-next" class="level1">
+<h1>Looking Ahead: What’s Next?</h1>
+<p>In our next blog post, we’ll look at the exciting world of sorting and organizing data in Power BI. We’ll explore how the newly transformed <code>CableNumber</code> column unlocks new possibilities for sorting our dataset. This is where our data starts to reveal its true potential, allowing us to gain clearer insights and make informed decisions.</p>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->

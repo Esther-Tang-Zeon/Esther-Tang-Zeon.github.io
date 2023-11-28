@@ -6,111 +6,130 @@ categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
-# Fiber Optics: The Invisible Threads Connecting Our World 
+# Decoding Fiber Optic Data: A Power BI Cleansing Story
 
-## Introduction to Fiber Optics 
+## Introduction 
 
-Fiber optics - the invisible threads connecting our digital world - are the arteries of global communication. These hair-thin fibers carry the pulse of the data, voice, and images with astonishing speed and fidelity. 
 
-![image](opticfiber.jpg)
+![](opticfiber.jpg)
 
-## The Indispensable Nature of Fiber Optics
 
-The role of fiber optics extends beyond communication; It is foundational to the data infrastructure that supports our analytical endeavors. Without the clarity and speed they offer, the big data revolution would falter. 
+In the world of data science, the cleanliness of your dataset can mean the difference clarity and confusion. Today, let's look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let's walk through the steps taken to achieve a pristine dataset ready for insightful analysis. 
 
-## The Global Web of Communication
 
-Our analysis begins with the acknowledgement of fiber optics' critical role. These fibers carry more than data; they trasmit opportunities, education, and innovation across oceans with the speed of light. 
+## Step 1: Importing the Workbook into Power BI 
 
-## The Challenge Ahead: Ensuring Fiber Health
-From a data scientist's perspective, the integrity of these data highways is paramount. A loss average exceeding 3.0dB is not just a number; It signifies potential disruption in the data flow that powers our analyses, models, and predictions. 
+The first step is to bring our data into the Power BI environment. We do this by importing the Excel workbook that contains our fiber optic test data. This is done using the `Excel.Workbook` function, which takes the file path as a parameter and loads the content. 
 
-## Showcasing Power BI Proficiency in Data Cleaning
-In the language of data science, raw data is the ore from which insights are extracted. Using Power BI, I undertook the following meticulous steps to refine this ore: 
+`= Excel.Workbook(File.Contents("C:\Users\zeony\Downloads\Vlad Fast Report\REFX07 Cable_ Fiber100.xlsm"), null, true)`
 
-### Step 1: Importing Data
+![](1.png)
 
-`Source{[Item="OLTS Report",Kind="Sheet"]}[Data]`
-This step imports the OLTS Report sheet data into Power BI. Here, initial inspection reveals two null rows that will need addressing later in the cleaning process.
+This function navigates to the specified file path, reads the contents of the workbook, and imports the data, setting the stage for the next steps. 
 
-### Step 2: Setting Column Data Types
+## Step 2: Selecting the Data 
 
-`Table.TransformColumnTypes(#"OLTS Report_Sheet", {...})`
-Assigns the correct data type to each column of the table. This is crucial as it ensures that calculations and further data manipulations are performed correctly.
+Next, we locate and select the specific sheet named `OLTS Report` that contains the data we want to analyze. The data is raw at this point, containing all the information from the sheet. 
 
-### Step 3: Promoting Headers
+`= Source{[Item="OLTS Report",Kind="Sheet"]}[Data]` 
 
-`Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true])`
-Converts the first row of the dataset into column headers. This step is essential for turning a range of data into a structured table that Power BI can work with effectively.
+![](2.png)
 
-### Step 4: Removing Top Rows
+The snippet accesses the `OLTS Report` sheet within the workbook and extracts all the data from it. 
 
-`Table.Skip(#"Promoted Headers",14)`
-Skips the first 14 rows, which are often metadata or formatting that are not relevant to the actual data analysis.
+## Step 3: Skipping Unneeded Rows 
 
-### Step 5: Re-Promoting Headers
+Our raw data inclused headers and metadata that aren't necessary for analysis. We remove these by skipping the first 15 rows. 
 
-`Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true])`
-After removing the top rows, this step re-establishes the first row of the remaining dataset as headers, which may have shifted due to the previous steps.
+`= Table.Skip(#"OLTS Report_Sheet",15)` 
 
-### Step 6: Filling Down Identifiers
+![](3.png)
 
-`Table.FillDown(#"Promoted Headers1",{"Identifier"})`
-Ensures that all rows within a particular segment have consistent identifiers, filling down the value from the first row of the segment throughout its rows.
+The `Table.Skip` function is used to bypass the first 15 rows of the dataset, which helps in focusing on the data that is actually needed. 
 
-### Step 7: Filtering Rows
+## Step 4: Establishing Headers 
 
-`Table.SelectRows(#"Filled Down", each ([Identifier] <> ...))`
-Removes rows based on the content of the Identifier column, filtering out rows with specific text like "Default" or "Loopback" that are not needed for analysis.
+For our data to be properly organized, we need to promote the first row of our dataset to serve as the headers for our table.
 
-### Step 8: Removing Columns
+`= Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true])`
 
-`Table.RemoveColumns(#"Filtered Rows",{"Column2"})`
-Removes unnecessary columns from the dataset, in this case, "Column2", which may contain redundant or irrelevant information.
+![](4.png)
 
-### Step 9: Selecting Relevant Columns
+The `Table.PromoteHeaders` function converts the first row of our adjusted dataset into column headers, giving us a clear, labeled structure to work with.
 
-`Table.SelectColumns(#"Removed Columns",{"Identifier", "Wave-#(lf)length #(lf)(nm)", ...})`
-Narrows down the dataset to only include columns that are relevant for the analysis.
+## Step 5: Selecting Relevant Columns
 
-### Step 10: Filling Down Date/Time
+To streamline our dataset, we select only the columns that are necessary for our analysis, removing any extraneous information.
 
-`Table.FillDown(#"Removed Other Columns",{"Date/Time"})`
-Applies the 'fill down' operation to the Date/Time column to ensure that all entries within a segment have the correct timestamp.
+`= Table.SelectColumns(#"Promoted Headers",{"Identifier", "Wave-#(lf)length #(lf)(nm)", " Loss Average (dB)", "Loss Margin#(lf)(dB)", "Loss #(lf)A->B#(lf) (dB)", "Loss #(lf)B->A #(lf)(dB)", "ORL#(lf) A#(lf) (dB)", "ORL#(lf) B#(lf)(dB)", "Length #(lf)#(lf)(ft)", "Date/Time"})` 
 
-### Step 11: Transforming Date/Time Column Types
+![](5.png)
 
-`Table.TransformColumnTypes(#"Filled Down1",{{"Date/Time", type datetime}})`
-Converts the Date/Time column to the datetime data type to enable time-based analysis.
+The Table.SelectColumns function allows us to specify exactly which columns to retain in our dataset, ensuring that we're working only with data that's relevant to our analysis goals.
 
-### Step 12: Filtering Specific Rows
 
-`Table.SelectRows(#"Changed Type1", each ([Identifier] <> "1310" and [Identifier] <> "1550"))`
-Excludes rows with the identifiers "1310" and "1550" if these rows do not contain data relevant to the analysis.
+## Step 6: Filling Down Identifiers
 
-### Step 13: Removing Last Row
+In some cases, our dataset may have missing values that can be inferred from the data above. We use the Table.FillDown function to fill these gaps.
 
-`Table.RemoveLastN(#"Filtered Rows1",1)`
-Removes the last row of the dataset, which often contains totals or summary data not needed for individual data point analysis.
+`= Table.FillDown(#"Removed Other Columns",{"Identifier", "Date/Time"})`
 
-### Step 14: Final Column Removal
+![](6.png)
 
-`Table.RemoveColumns(#"Removed Bottom Rows",{"Column12"})`
-Eliminates the last unnecessary column, further refining the dataset.
+This function ensures that for any missing entries in the `Identifier` and `Date/Time` columns, the value from the previous row is carried down.
 
-### Step 15: Transforming Numeric Column Types
+## Step 7: Filtering Out Irrelevant Rows
 
-`Table.TransformColumnTypes(#"Removed Columns1", {...})`
-Ensures all columns that contain numeric values are set to the correct numeric data type, which is essential for accurate calculations.
+We filter out rows with identifiers that aren't necessary for our analysis, such as test identifiers or default values that don't hold actual test data.
 
-### Step 16: Adding Cable Number Column
+`= Table.SelectRows(#"Filled Down", each ([Identifier] <> 1310 and [Identifier] <> 1550 and [Identifier] <> "1310" and [Identifier] <> "1550" and [Identifier] <> "Default" and [Identifier] <> "Loopback" and [Identifier] <> "Pass/Fail Thresholds" and [Identifier] <> "Reference" and [Identifier] <> "Reference Method" and [Identifier] <> "Wavelength#(lf)(nm)"))`
 
-`Table.AddColumn(#"Changed Type2", "CableNumber", each Number.FromText(Text.AfterDelimiter([Identifier], "Cable_Fiber")))`
-Adds a new column that extracts the cable number from the Identifier column, which is a key step for categorizing and segmenting the data.
+![](6.5.png)
 
-### Step 17: Transforming Cable Number Column Type
+The Table.SelectRows function is applied with a condition that excludes rows with certain `Identifier` values, cleaning up our dataset further.
 
-`Table.TransformColumnTypes(#"Added Custom",{{"CableNumber", Int64.Type}})`
-Converts the newly added CableNumber column into an integer data type, which allows for numerical operations to be performed on it.
+## Step 8: Transforming Column Types
+
+Data types are crucial for accurate analysis. We convert the data in each column to the appropriate data type, such as text, numbers, or dates.
+
+`= Table.TransformColumnTypes(#"Filtered Rows",{{"Identifier", type text}, {"Wave-#(lf)length #(lf)(nm)", Int64.Type}, {" Loss Average (dB)", type number}, {"Loss Margin#(lf)(dB)", type number}, {"Loss #(lf)A->B#(lf) (dB)", type number}, {"Loss #(lf)B->A #(lf)(dB)", type number}, {"ORL#(lf) A#(lf) (dB)", type number}, {"ORL#(lf) B#(lf)(dB)", type number}, {"Length #(lf)#(lf)(ft)", type number}, {"Date/Time", type datetime}})`
+
+![](8.png)
+
+This step ensures that each column in our dataset is treated correctly by Power BI during any subsequent operations or analyses.
+
+## Step 9: Removing the Last Row
+
+Sometimes, the last row of data contains summary or footer information that isn't part of the actual dataset.
+
+`= Table.RemoveLastN(#"Changed Type",1)`
+
+![](9.png)
+
+By using Table.RemoveLastN, we remove this last row from our dataset to maintain data integrity.
+
+## Step 10: Adding a Cable Number Column
+
+To make our analysis more granular, we add a column that uniquely identifies each fiber optic cable.
+
+`= Table.AddColumn(#"Removed Bottom Rows", "CableNumber", each Number.FromText(Text.AfterDelimiter([Identifier], "Cable_Fiber")))`
+
+![](10.png)
+
+## Step 11: Transforming Data Type 
+
+As we wrap up this segment of our data journey in Power BI, let's reflect on the significance of what we've accomplished so far. We have successfully navigated the intricate process of cleaning and structuring our fiber optic data. Particularly, by transforming the 'CableNumber' column to an integer data type, we've laid the groundwork for accurate, meaningful analyses:
+
+
+`= Table.TransformColumnTypes(#"Added Custom",{{"CableNumber", Int64.Type}})` 
+
+![](11.png)
+
+This step, while technical, is pivotal. It underscores the essence of data preparation – ensuring that each piece of data is in its most useful form. The 'CableNumber' column, now accurately recognized as numerical data, will serve as a key pillar in our subsequent data exploration.
+
+# Looking Ahead: What's Next?
+
+In our next blog post, we'll look at the exciting world of sorting and organizing data in Power BI. We'll explore how the newly transformed `CableNumber` column unlocks new possibilities for sorting our dataset. This is where our data starts to reveal its true potential, allowing us to gain clearer insights and make informed decisions.
+
 
 
