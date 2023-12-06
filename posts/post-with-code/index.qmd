@@ -1,20 +1,20 @@
 ---
-title: "Esther's First Blog"
+title: "From Data to Light: A Data Scientist's Adventure Part 2 - Data Tidying with Power BI"
 author: "Esther Tang"
 date: "2023-11-12"
-categories: [news, code, analysis]
-image: "image.jpg"
+# categories: [news, code, analysis]
+image: "opticfiber.jpg"
 ---
 
-# Decoding Fiber Optic Data: A Power BI Cleansing Story
+<!-- # Decoding Fiber Optic Data: A Power BI Cleansing Story -->
 
 ## Introduction 
 
 
-![](opticfiber.jpg)
+![](blog2image.png)
 
 
-In the world of data science, the cleanliness of your dataset can mean the difference clarity and confusion. Today, let's look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let's walk through the steps taken to achieve a pristine dataset ready for insightful analysis. 
+In the world of data science, the cleanliness of your dataset can mean the difference between clarity and confusion. Today, let's look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let's walk through the steps taken to achieve a pristine dataset ready for insightful analysis. 
 
 
 ## Step 1: Importing the Workbook into Power BI 
@@ -118,7 +118,7 @@ To make our analysis more granular, we add a column that uniquely identifies eac
 
 ## Step 11: Transforming Data Type 
 
-As we wrap up this segment of our data journey in Power BI, let's reflect on the significance of what we've accomplished so far. We have successfully navigated the intricate process of cleaning and structuring our fiber optic data. Particularly, by transforming the 'CableNumber' column to an integer data type, we've laid the groundwork for accurate, meaningful analyses:
+As we wrap up this segment of our data journey in Power BI, let's reflect on the significance of what we've accomplished so far. We have successfully navigated the intricate process of cleaning and structuring our fiber optic data. Particularly, by transforming the `CableNumber` column to an integer data type, we've laid the groundwork for accurate, meaningful analyses:
 
 
 `= Table.TransformColumnTypes(#"Added Custom",{{"CableNumber", Int64.Type}})` 

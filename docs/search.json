@@ -9,16 +9,16 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Esther’s Blog",
+    "title": "Welcome to Esther Tang’s Blogs!",
     "section": "",
-    "text": "Esther’s First Blog\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 12, 2023\n\n\nEsther Tang\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nSep 15, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "From Data to Light: A Data Scientist’s Adventure Part 1\n\n\n\n\n\n\n\n\n\n\n\n\nDec 5, 2023\n\n\nEsther Tang\n\n\n\n\n\n\n  \n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI\n\n\n\n\n\n\n\n\n\n\n\n\nNov 12, 2023\n\n\nEsther Tang\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
     "href": "posts/post-with-code/index.html",
-    "title": "Esther’s First Blog",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
     "section": "",
-    "text": "In the world of data science, the cleanliness of your dataset can mean the difference clarity and confusion. Today, let’s look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let’s walk through the steps taken to achieve a pristine dataset ready for insightful analysis.\n\n\n\nThe first step is to bring our data into the Power BI environment. We do this by importing the Excel workbook that contains our fiber optic test data. This is done using the Excel.Workbook function, which takes the file path as a parameter and loads the content.\n= Excel.Workbook(File.Contents(\"C:\\Users\\zeony\\Downloads\\Vlad Fast Report\\REFX07 Cable_ Fiber100.xlsm\"), null, true)\n\nThis function navigates to the specified file path, reads the contents of the workbook, and imports the data, setting the stage for the next steps.\n\n\n\nNext, we locate and select the specific sheet named OLTS Report that contains the data we want to analyze. The data is raw at this point, containing all the information from the sheet.\n= Source{[Item=\"OLTS Report\",Kind=\"Sheet\"]}[Data]\n\nThe snippet accesses the OLTS Report sheet within the workbook and extracts all the data from it.\n\n\n\nOur raw data inclused headers and metadata that aren’t necessary for analysis. We remove these by skipping the first 15 rows.\n= Table.Skip(#\"OLTS Report_Sheet\",15)\n\nThe Table.Skip function is used to bypass the first 15 rows of the dataset, which helps in focusing on the data that is actually needed.\n\n\n\nFor our data to be properly organized, we need to promote the first row of our dataset to serve as the headers for our table.\n= Table.PromoteHeaders(#\"Removed Top Rows\", [PromoteAllScalars=true])\n\nThe Table.PromoteHeaders function converts the first row of our adjusted dataset into column headers, giving us a clear, labeled structure to work with.\n\n\n\nTo streamline our dataset, we select only the columns that are necessary for our analysis, removing any extraneous information.\n= Table.SelectColumns(#\"Promoted Headers\",{\"Identifier\", \"Wave-#(lf)length #(lf)(nm)\", \" Loss Average (dB)\", \"Loss Margin#(lf)(dB)\", \"Loss #(lf)A-&gt;B#(lf) (dB)\", \"Loss #(lf)B-&gt;A #(lf)(dB)\", \"ORL#(lf) A#(lf) (dB)\", \"ORL#(lf) B#(lf)(dB)\", \"Length #(lf)#(lf)(ft)\", \"Date/Time\"})\n\nThe Table.SelectColumns function allows us to specify exactly which columns to retain in our dataset, ensuring that we’re working only with data that’s relevant to our analysis goals.\n\n\n\nIn some cases, our dataset may have missing values that can be inferred from the data above. We use the Table.FillDown function to fill these gaps.\n= Table.FillDown(#\"Removed Other Columns\",{\"Identifier\", \"Date/Time\"})\n\nThis function ensures that for any missing entries in the Identifier and Date/Time columns, the value from the previous row is carried down.\n\n\n\nWe filter out rows with identifiers that aren’t necessary for our analysis, such as test identifiers or default values that don’t hold actual test data.\n= Table.SelectRows(#\"Filled Down\", each ([Identifier] &lt;&gt; 1310 and [Identifier] &lt;&gt; 1550 and [Identifier] &lt;&gt; \"1310\" and [Identifier] &lt;&gt; \"1550\" and [Identifier] &lt;&gt; \"Default\" and [Identifier] &lt;&gt; \"Loopback\" and [Identifier] &lt;&gt; \"Pass/Fail Thresholds\" and [Identifier] &lt;&gt; \"Reference\" and [Identifier] &lt;&gt; \"Reference Method\" and [Identifier] &lt;&gt; \"Wavelength#(lf)(nm)\"))\n\nThe Table.SelectRows function is applied with a condition that excludes rows with certain Identifier values, cleaning up our dataset further.\n\n\n\nData types are crucial for accurate analysis. We convert the data in each column to the appropriate data type, such as text, numbers, or dates.\n= Table.TransformColumnTypes(#\"Filtered Rows\",{{\"Identifier\", type text}, {\"Wave-#(lf)length #(lf)(nm)\", Int64.Type}, {\" Loss Average (dB)\", type number}, {\"Loss Margin#(lf)(dB)\", type number}, {\"Loss #(lf)A-&gt;B#(lf) (dB)\", type number}, {\"Loss #(lf)B-&gt;A #(lf)(dB)\", type number}, {\"ORL#(lf) A#(lf) (dB)\", type number}, {\"ORL#(lf) B#(lf)(dB)\", type number}, {\"Length #(lf)#(lf)(ft)\", type number}, {\"Date/Time\", type datetime}})\n\nThis step ensures that each column in our dataset is treated correctly by Power BI during any subsequent operations or analyses.\n\n\n\nSometimes, the last row of data contains summary or footer information that isn’t part of the actual dataset.\n= Table.RemoveLastN(#\"Changed Type\",1)\n\nBy using Table.RemoveLastN, we remove this last row from our dataset to maintain data integrity.\n\n\n\nTo make our analysis more granular, we add a column that uniquely identifies each fiber optic cable.\n= Table.AddColumn(#\"Removed Bottom Rows\", \"CableNumber\", each Number.FromText(Text.AfterDelimiter([Identifier], \"Cable_Fiber\")))\n\n\n\n\nAs we wrap up this segment of our data journey in Power BI, let’s reflect on the significance of what we’ve accomplished so far. We have successfully navigated the intricate process of cleaning and structuring our fiber optic data. Particularly, by transforming the ‘CableNumber’ column to an integer data type, we’ve laid the groundwork for accurate, meaningful analyses:\n= Table.TransformColumnTypes(#\"Added Custom\",{{\"CableNumber\", Int64.Type}})\n\nThis step, while technical, is pivotal. It underscores the essence of data preparation – ensuring that each piece of data is in its most useful form. The ‘CableNumber’ column, now accurately recognized as numerical data, will serve as a key pillar in our subsequent data exploration."
+    "text": "In the world of data science, the cleanliness of your dataset can mean the difference between clarity and confusion. Today, let’s look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let’s walk through the steps taken to achieve a pristine dataset ready for insightful analysis."
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -65,85 +65,148 @@
   {
     "objectID": "posts/post-with-code/index.html#introduction",
     "href": "posts/post-with-code/index.html#introduction",
-    "title": "Esther’s First Blog",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
     "section": "",
-    "text": "In the world of data science, the cleanliness of your dataset can mean the difference clarity and confusion. Today, let’s look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let’s walk through the steps taken to achieve a pristine dataset ready for insightful analysis."
+    "text": "In the world of data science, the cleanliness of your dataset can mean the difference between clarity and confusion. Today, let’s look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let’s walk through the steps taken to achieve a pristine dataset ready for insightful analysis."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-1-importing-the-workbook-into-power-bi",
     "href": "posts/post-with-code/index.html#step-1-importing-the-workbook-into-power-bi",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "The first step is to bring our data into the Power BI environment. We do this by importing the Excel workbook that contains our fiber optic test data. This is done using the Excel.Workbook function, which takes the file path as a parameter and loads the content.\n= Excel.Workbook(File.Contents(\"C:\\Users\\zeony\\Downloads\\Vlad Fast Report\\REFX07 Cable_ Fiber100.xlsm\"), null, true)\n\nThis function navigates to the specified file path, reads the contents of the workbook, and imports the data, setting the stage for the next steps."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 1: Importing the Workbook into Power BI",
+    "text": "Step 1: Importing the Workbook into Power BI\nThe first step is to bring our data into the Power BI environment. We do this by importing the Excel workbook that contains our fiber optic test data. This is done using the Excel.Workbook function, which takes the file path as a parameter and loads the content.\n= Excel.Workbook(File.Contents(\"C:\\Users\\zeony\\Downloads\\Vlad Fast Report\\REFX07 Cable_ Fiber100.xlsm\"), null, true)\n\nThis function navigates to the specified file path, reads the contents of the workbook, and imports the data, setting the stage for the next steps."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-2-selecting-the-data",
     "href": "posts/post-with-code/index.html#step-2-selecting-the-data",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "Next, we locate and select the specific sheet named OLTS Report that contains the data we want to analyze. The data is raw at this point, containing all the information from the sheet.\n= Source{[Item=\"OLTS Report\",Kind=\"Sheet\"]}[Data]\n\nThe snippet accesses the OLTS Report sheet within the workbook and extracts all the data from it."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 2: Selecting the Data",
+    "text": "Step 2: Selecting the Data\nNext, we locate and select the specific sheet named OLTS Report that contains the data we want to analyze. The data is raw at this point, containing all the information from the sheet.\n= Source{[Item=\"OLTS Report\",Kind=\"Sheet\"]}[Data]\n\nThe snippet accesses the OLTS Report sheet within the workbook and extracts all the data from it."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-3-skipping-unneeded-rows",
     "href": "posts/post-with-code/index.html#step-3-skipping-unneeded-rows",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "Our raw data inclused headers and metadata that aren’t necessary for analysis. We remove these by skipping the first 15 rows.\n= Table.Skip(#\"OLTS Report_Sheet\",15)\n\nThe Table.Skip function is used to bypass the first 15 rows of the dataset, which helps in focusing on the data that is actually needed."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 3: Skipping Unneeded Rows",
+    "text": "Step 3: Skipping Unneeded Rows\nOur raw data inclused headers and metadata that aren’t necessary for analysis. We remove these by skipping the first 15 rows.\n= Table.Skip(#\"OLTS Report_Sheet\",15)\n\nThe Table.Skip function is used to bypass the first 15 rows of the dataset, which helps in focusing on the data that is actually needed."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-4-establishing-headers",
     "href": "posts/post-with-code/index.html#step-4-establishing-headers",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "For our data to be properly organized, we need to promote the first row of our dataset to serve as the headers for our table.\n= Table.PromoteHeaders(#\"Removed Top Rows\", [PromoteAllScalars=true])\n\nThe Table.PromoteHeaders function converts the first row of our adjusted dataset into column headers, giving us a clear, labeled structure to work with."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 4: Establishing Headers",
+    "text": "Step 4: Establishing Headers\nFor our data to be properly organized, we need to promote the first row of our dataset to serve as the headers for our table.\n= Table.PromoteHeaders(#\"Removed Top Rows\", [PromoteAllScalars=true])\n\nThe Table.PromoteHeaders function converts the first row of our adjusted dataset into column headers, giving us a clear, labeled structure to work with."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-5-selecting-relevant-columns",
     "href": "posts/post-with-code/index.html#step-5-selecting-relevant-columns",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "To streamline our dataset, we select only the columns that are necessary for our analysis, removing any extraneous information.\n= Table.SelectColumns(#\"Promoted Headers\",{\"Identifier\", \"Wave-#(lf)length #(lf)(nm)\", \" Loss Average (dB)\", \"Loss Margin#(lf)(dB)\", \"Loss #(lf)A-&gt;B#(lf) (dB)\", \"Loss #(lf)B-&gt;A #(lf)(dB)\", \"ORL#(lf) A#(lf) (dB)\", \"ORL#(lf) B#(lf)(dB)\", \"Length #(lf)#(lf)(ft)\", \"Date/Time\"})\n\nThe Table.SelectColumns function allows us to specify exactly which columns to retain in our dataset, ensuring that we’re working only with data that’s relevant to our analysis goals."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 5: Selecting Relevant Columns",
+    "text": "Step 5: Selecting Relevant Columns\nTo streamline our dataset, we select only the columns that are necessary for our analysis, removing any extraneous information.\n= Table.SelectColumns(#\"Promoted Headers\",{\"Identifier\", \"Wave-#(lf)length #(lf)(nm)\", \" Loss Average (dB)\", \"Loss Margin#(lf)(dB)\", \"Loss #(lf)A-&gt;B#(lf) (dB)\", \"Loss #(lf)B-&gt;A #(lf)(dB)\", \"ORL#(lf) A#(lf) (dB)\", \"ORL#(lf) B#(lf)(dB)\", \"Length #(lf)#(lf)(ft)\", \"Date/Time\"})\n\nThe Table.SelectColumns function allows us to specify exactly which columns to retain in our dataset, ensuring that we’re working only with data that’s relevant to our analysis goals."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-6-filling-down-identifiers",
     "href": "posts/post-with-code/index.html#step-6-filling-down-identifiers",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "In some cases, our dataset may have missing values that can be inferred from the data above. We use the Table.FillDown function to fill these gaps.\n= Table.FillDown(#\"Removed Other Columns\",{\"Identifier\", \"Date/Time\"})\n\nThis function ensures that for any missing entries in the Identifier and Date/Time columns, the value from the previous row is carried down."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 6: Filling Down Identifiers",
+    "text": "Step 6: Filling Down Identifiers\nIn some cases, our dataset may have missing values that can be inferred from the data above. We use the Table.FillDown function to fill these gaps.\n= Table.FillDown(#\"Removed Other Columns\",{\"Identifier\", \"Date/Time\"})\n\nThis function ensures that for any missing entries in the Identifier and Date/Time columns, the value from the previous row is carried down."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-7-filtering-out-irrelevant-rows",
     "href": "posts/post-with-code/index.html#step-7-filtering-out-irrelevant-rows",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "We filter out rows with identifiers that aren’t necessary for our analysis, such as test identifiers or default values that don’t hold actual test data.\n= Table.SelectRows(#\"Filled Down\", each ([Identifier] &lt;&gt; 1310 and [Identifier] &lt;&gt; 1550 and [Identifier] &lt;&gt; \"1310\" and [Identifier] &lt;&gt; \"1550\" and [Identifier] &lt;&gt; \"Default\" and [Identifier] &lt;&gt; \"Loopback\" and [Identifier] &lt;&gt; \"Pass/Fail Thresholds\" and [Identifier] &lt;&gt; \"Reference\" and [Identifier] &lt;&gt; \"Reference Method\" and [Identifier] &lt;&gt; \"Wavelength#(lf)(nm)\"))\n\nThe Table.SelectRows function is applied with a condition that excludes rows with certain Identifier values, cleaning up our dataset further."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 7: Filtering Out Irrelevant Rows",
+    "text": "Step 7: Filtering Out Irrelevant Rows\nWe filter out rows with identifiers that aren’t necessary for our analysis, such as test identifiers or default values that don’t hold actual test data.\n= Table.SelectRows(#\"Filled Down\", each ([Identifier] &lt;&gt; 1310 and [Identifier] &lt;&gt; 1550 and [Identifier] &lt;&gt; \"1310\" and [Identifier] &lt;&gt; \"1550\" and [Identifier] &lt;&gt; \"Default\" and [Identifier] &lt;&gt; \"Loopback\" and [Identifier] &lt;&gt; \"Pass/Fail Thresholds\" and [Identifier] &lt;&gt; \"Reference\" and [Identifier] &lt;&gt; \"Reference Method\" and [Identifier] &lt;&gt; \"Wavelength#(lf)(nm)\"))\n\nThe Table.SelectRows function is applied with a condition that excludes rows with certain Identifier values, cleaning up our dataset further."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-8-transforming-column-types",
     "href": "posts/post-with-code/index.html#step-8-transforming-column-types",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "Data types are crucial for accurate analysis. We convert the data in each column to the appropriate data type, such as text, numbers, or dates.\n= Table.TransformColumnTypes(#\"Filtered Rows\",{{\"Identifier\", type text}, {\"Wave-#(lf)length #(lf)(nm)\", Int64.Type}, {\" Loss Average (dB)\", type number}, {\"Loss Margin#(lf)(dB)\", type number}, {\"Loss #(lf)A-&gt;B#(lf) (dB)\", type number}, {\"Loss #(lf)B-&gt;A #(lf)(dB)\", type number}, {\"ORL#(lf) A#(lf) (dB)\", type number}, {\"ORL#(lf) B#(lf)(dB)\", type number}, {\"Length #(lf)#(lf)(ft)\", type number}, {\"Date/Time\", type datetime}})\n\nThis step ensures that each column in our dataset is treated correctly by Power BI during any subsequent operations or analyses."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 8: Transforming Column Types",
+    "text": "Step 8: Transforming Column Types\nData types are crucial for accurate analysis. We convert the data in each column to the appropriate data type, such as text, numbers, or dates.\n= Table.TransformColumnTypes(#\"Filtered Rows\",{{\"Identifier\", type text}, {\"Wave-#(lf)length #(lf)(nm)\", Int64.Type}, {\" Loss Average (dB)\", type number}, {\"Loss Margin#(lf)(dB)\", type number}, {\"Loss #(lf)A-&gt;B#(lf) (dB)\", type number}, {\"Loss #(lf)B-&gt;A #(lf)(dB)\", type number}, {\"ORL#(lf) A#(lf) (dB)\", type number}, {\"ORL#(lf) B#(lf)(dB)\", type number}, {\"Length #(lf)#(lf)(ft)\", type number}, {\"Date/Time\", type datetime}})\n\nThis step ensures that each column in our dataset is treated correctly by Power BI during any subsequent operations or analyses."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-9-removing-the-last-row",
     "href": "posts/post-with-code/index.html#step-9-removing-the-last-row",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "Sometimes, the last row of data contains summary or footer information that isn’t part of the actual dataset.\n= Table.RemoveLastN(#\"Changed Type\",1)\n\nBy using Table.RemoveLastN, we remove this last row from our dataset to maintain data integrity."
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 9: Removing the Last Row",
+    "text": "Step 9: Removing the Last Row\nSometimes, the last row of data contains summary or footer information that isn’t part of the actual dataset.\n= Table.RemoveLastN(#\"Changed Type\",1)\n\nBy using Table.RemoveLastN, we remove this last row from our dataset to maintain data integrity."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-10-adding-a-cable-number-column",
     "href": "posts/post-with-code/index.html#step-10-adding-a-cable-number-column",
-    "title": "Esther’s First Blog",
-    "section": "",
-    "text": "To make our analysis more granular, we add a column that uniquely identifies each fiber optic cable.\n= Table.AddColumn(#\"Removed Bottom Rows\", \"CableNumber\", each Number.FromText(Text.AfterDelimiter([Identifier], \"Cable_Fiber\")))"
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 10: Adding a Cable Number Column",
+    "text": "Step 10: Adding a Cable Number Column\nTo make our analysis more granular, we add a column that uniquely identifies each fiber optic cable.\n= Table.AddColumn(#\"Removed Bottom Rows\", \"CableNumber\", each Number.FromText(Text.AfterDelimiter([Identifier], \"Cable_Fiber\")))"
   },
   {
     "objectID": "posts/post-with-code/index.html#step-11-transforming-data-type",
     "href": "posts/post-with-code/index.html#step-11-transforming-data-type",
-    "title": "Esther’s First Blog",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 11: Transforming Data Type",
+    "text": "Step 11: Transforming Data Type\nAs we wrap up this segment of our data journey in Power BI, let’s reflect on the significance of what we’ve accomplished so far. We have successfully navigated the intricate process of cleaning and structuring our fiber optic data. Particularly, by transforming the CableNumber column to an integer data type, we’ve laid the groundwork for accurate, meaningful analyses:\n= Table.TransformColumnTypes(#\"Added Custom\",{{\"CableNumber\", Int64.Type}})\n\nThis step, while technical, is pivotal. It underscores the essence of data preparation – ensuring that each piece of data is in its most useful form. The ‘CableNumber’ column, now accurately recognized as numerical data, will serve as a key pillar in our subsequent data exploration."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html",
+    "href": "posts/FirstBlog/index.html",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
     "section": "",
-    "text": "As we wrap up this segment of our data journey in Power BI, let’s reflect on the significance of what we’ve accomplished so far. We have successfully navigated the intricate process of cleaning and structuring our fiber optic data. Particularly, by transforming the ‘CableNumber’ column to an integer data type, we’ve laid the groundwork for accurate, meaningful analyses:\n= Table.TransformColumnTypes(#\"Added Custom\",{{\"CableNumber\", Int64.Type}})\n\nThis step, while technical, is pivotal. It underscores the essence of data preparation – ensuring that each piece of data is in its most useful form. The ‘CableNumber’ column, now accurately recognized as numerical data, will serve as a key pillar in our subsequent data exploration."
+    "text": "Hello, readers! I’m Esther Tang, a data science enthusiast with a passion for delving into complex datasets. I’m here to share an exciting journey I embarked on recently: a deep dive into the intricacies of fiber optic data. This project was not just about crunching numbers but understanding the lifelines of our digital age: fiber optic cables."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#introduction",
+    "href": "posts/FirstBlog/index.html#introduction",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "",
+    "text": "Hello, readers! I’m Esther Tang, a data science enthusiast with a passion for delving into complex datasets. I’m here to share an exciting journey I embarked on recently: a deep dive into the intricacies of fiber optic data. This project was not just about crunching numbers but understanding the lifelines of our digital age: fiber optic cables."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#whats-all-the-fuss-about-fiber-optics",
+    "href": "posts/FirstBlog/index.html#whats-all-the-fuss-about-fiber-optics",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "What’s All the Fuss About Fiber Optics?",
+    "text": "What’s All the Fuss About Fiber Optics?\nBefore we get into the data, let’s talk fiber optics. These marvels of modern technology are thinner than a tenth of a hair strand, yet they connect continents with light. The core and cladding of these cables ensure that light travels vast distances without significant loss. But, as we know, no technology is foolproof."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#understanding-the-components",
+    "href": "posts/FirstBlog/index.html#understanding-the-components",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "Understanding the Components",
+    "text": "Understanding the Components\n\n1. The Core: This is the heart of the fiber optic cable, where light travels across distances.\n2. The Cladding: Surrounding the core, the cladding ensures light is kept within, enabling efficient transmission."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#why-fiber-optics-matter",
+    "href": "posts/FirstBlog/index.html#why-fiber-optics-matter",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "Why Fiber Optics Matter",
+    "text": "Why Fiber Optics Matter\nIn our digitally connected world, understanding and maintaining these cables is vital. They are not just cables; they are the backbone of global communication."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#the-challenge-at-hand",
+    "href": "posts/FirstBlog/index.html#the-challenge-at-hand",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "The Challenge at Hand",
+    "text": "The Challenge at Hand\nWearing a detective hat, I learned that data tells stories, often revealing mysteries waiting to be solved, especially in the field of fiber optics. Despite their efficiency, these cables face significant challenges. Similar to how sound fades over distance, the light signals in fiber optic cables weaken during transmission. This attenuation, a form of transmission loss, can disrupt global communication, necessitating meticulous monitoring and maintenance.\nWhile there are many factors that can affect the transmission of light through these cables – like contaminated end faces, exceeding the bend radius, pinched jumpers, cracked fibers, and ferrule misalignment – we won’t be diving deep into the technicalities of these issues. Instead, as data scientists, our focus is on detecting these anomalies through data analysis. Our goal is clear: identify data points with significant transmission loss. This information, crucial for engineers, aids them in pinpointing and resolving issues in the network."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#our-mission-detecting-data-anomalies",
+    "href": "posts/FirstBlog/index.html#our-mission-detecting-data-anomalies",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "Our Mission: Detecting Data Anomalies",
+    "text": "Our Mission: Detecting Data Anomalies\nOur project’s objective was to detect cables with an average loss exceeding a specific threshold, alerting the team to potential problems. By analyzing the data, we could identify these anomalies and immediately notify the engineers. Our role didn’t end with detection; we also dived into cleaning and analyzing this data to provide comprehensive reports on average losses and trends, serving the business needs effectively."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#data-at-a-glance",
+    "href": "posts/FirstBlog/index.html#data-at-a-glance",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "Data at a Glance",
+    "text": "Data at a Glance\nHere’s a sneak peek at the kind of data we’re dealing with:\n\nUpon spotting anomalies, we immediately notify the engineers. But our job doesn’t end there; we dive into cleaning and analyzing this data to provide comprehensive reports on average losses and trends."
+  },
+  {
+    "objectID": "posts/FirstBlog/index.html#wrapping-up",
+    "href": "posts/FirstBlog/index.html#wrapping-up",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
+    "section": "Wrapping Up",
+    "text": "Wrapping Up\nSo, that’s the start of our journey into the world of fiber optics and data analysis. In my next post, I’ll dive into how we used Power BI for data cleansing. It’s a tale of transforming raw numbers into meaningful insights. Stay tuned!"
   }
 ]

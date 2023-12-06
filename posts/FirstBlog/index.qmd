@@ -1,0 +1,71 @@
+---
+title: "From Data to Light: A Data Scientist's Adventure Part 1"
+author: "Esther Tang"
+date: "2023-12-05"
+---
+
+
+## Introduction 
+
+![](blogpost1.png)
+
+Hello, readers! I'm Esther Tang, a data science enthusiast with a passion for delving into complex datasets. I'm here to share an exciting journey I embarked on recently: a deep dive into the intricacies of fiber optic data. This project was not just about crunching numbers but understanding the lifelines of our digital age: ***fiber optic cables***.
+
+
+
+## What's All the Fuss About Fiber Optics?
+
+Before we get into the data, let's talk fiber optics. These marvels of modern technology are thinner than a tenth of a hair strand, yet they connect continents with light. The core and cladding of these cables ensure that light travels vast distances without significant loss. But, as we know, no technology is foolproof.
+
+## Understanding the Components
+
+![](cable2.png)
+
+
+**1. The Core**: This is the heart of the fiber optic cable, where light travels across distances.
+
+**2. The Cladding**: Surrounding the core, the cladding ensures light is kept within, enabling efficient transmission.
+
+## Why Fiber Optics Matter
+
+In our digitally connected world, understanding and maintaining these cables is vital. They are not just cables; they are the backbone of global communication.
+
+## The Challenge at Hand
+
+Wearing a detective hat, I learned that data tells stories, often revealing mysteries waiting to be solved, especially in the field of fiber optics. Despite their efficiency, these cables face significant challenges. Similar to how sound fades over distance, the light signals in fiber optic cables weaken during transmission. This attenuation, a form of transmission loss, can disrupt global communication, necessitating meticulous monitoring and maintenance.
+
+While there are many factors that can affect the transmission of light through these cables – like contaminated end faces, exceeding the bend radius, pinched jumpers, cracked fibers, and ferrule misalignment – we won't be diving deep into the technicalities of these issues. Instead, as data scientists, our focus is on detecting these anomalies through data analysis. Our goal is clear: identify data points with significant transmission loss. This information, crucial for engineers, aids them in pinpointing and resolving issues in the network.
+
+## Our Mission: Detecting Data Anomalies
+Our project's objective was to detect cables with an average loss exceeding a specific threshold, alerting the team to potential problems. By analyzing the data, we could identify these anomalies and immediately notify the engineers. Our role didn't end with detection; we also dived into cleaning and analyzing this data to provide comprehensive reports on average losses and trends, serving the business needs effectively.
+
+## Data at a Glance
+Here's a sneak peek at the kind of data we're dealing with:
+
+![](first5columns.png)
+
+
+
+Upon spotting anomalies, we immediately notify the engineers. But our job doesn't end there; we dive into cleaning and analyzing this data to provide comprehensive reports on average losses and trends.
+
+
+## Wrapping Up
+
+So, that's the start of our journey into the world of fiber optics and data analysis. In my next post, I'll dive into how we used Power BI for data cleansing. It's a tale of transforming raw numbers into meaningful insights. Stay tuned! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
