@@ -11,9 +11,6 @@ image: "opticfiber.jpg"
 ## Introduction 
 
 
-![](blog2image.png)
-
-
 In the world of data science, the cleanliness of your dataset can mean the difference between clarity and confusion. Today, let's look at a dataset derived from fiber optic testing. Our mission: to use Power BI to transform this raw data into a clear, analyzable format. Let's walk through the steps taken to achieve a pristine dataset ready for insightful analysis. 
 
 
