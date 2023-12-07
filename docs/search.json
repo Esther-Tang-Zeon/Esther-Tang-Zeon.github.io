@@ -207,7 +207,7 @@
     "href": "posts/FirstBlog/index.html#wrapping-up",
     "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
     "section": "Wrapping Up",
-    "text": "Wrapping Up\nSo, that’s the start of our journey into the world of fiber optics and data analysis. In my next post, I’ll dive into how we used Power BI for data cleansing. It’s a tale of transforming raw numbers into meaningful insights. Stay tuned!"
+    "text": "Wrapping Up\nSo, that’s the start of our journey into the world of fiber optics and data analysis. In my next post, I’ll dive into how we used Power BI for data cleansing. It’s a story of transforming raw numbers into meaningful insights. Stay tuned!"
   },
   {
     "objectID": "posts/post-with-code/index.html#step-2-selecting-the-right-dataset",
@@ -264,5 +264,12 @@
     "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
     "section": "Step 9: Adding a CableNumber Column (To be covered in the next blog)",
     "text": "Step 9: Adding a CableNumber Column (To be covered in the next blog)\nThe final step in our data cleansing journey, which involves adding a CableNumber column, will be thoroughly discussed in our next blog. This addition is crucial for creating slicers in Power BI dashboards, enhancing the functionality of your dataset for deeper, more granular analysis."
+  },
+  {
+    "objectID": "posts/ThirdBlog/index.html",
+    "href": "posts/ThirdBlog/index.html",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Transforming the Column",
+    "section": "",
+    "text": "Introduction"
   }
 ]
