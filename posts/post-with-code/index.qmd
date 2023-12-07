@@ -56,11 +56,11 @@ Before setting headers, evaluate your current data. Typically, the first row con
 
 To promote this row to headers, navigate to the `Transform` tab and select `Use First Row as Headers`. This action organizes your data, ensuring each column is correctly labeled for easier interpretation and analysis. 
 
-![](setheader2.png)
+![](RightHeaders.png)
 
 This simple action automatically updates the first row as your column titles.
 
-![](removetop15rowsresult.png)
+![](setheader2.png)
 
 
 ## Step 5: Selecting Relevant Columns for Further Analysis
