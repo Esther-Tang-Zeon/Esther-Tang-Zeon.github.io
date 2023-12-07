@@ -13,6 +13,7 @@ date: "2023-11-21"
 
 ![](blog2image.png)
 
+
 # Introduction 
 
 Hello again! Remember our last blog where we touched on the significance of data cleansing in Power BI? Today, we're diving deeper into this crucial process. Cleaning data is not just a preliminary step; It's the foundation that supports robust analysis. With helpful screenshots, I'll guide you through the process, ensuring you can follow along and apply these techniques to your own data. 
