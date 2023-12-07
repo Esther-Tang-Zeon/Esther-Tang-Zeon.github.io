@@ -9,7 +9,7 @@
 <meta name="author" content="Esther Tang">
 <meta name="dcterms.date" content="2023-12-02">
 
-<title>EstherBlog - From Data to Light: A Data Scientist’s Adventure Part 3 - Transforming the Column</title>
+<title>EstherBlog - From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">From Data to Light: A Data Scientist’s Adventure Part 3 - Transforming the Column</h1>
+      <h1 class="title">From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI</h1>
                       </div>
   </div>
     
@@ -143,10 +143,67 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="enhancing-power-bi-slicers-with-the-cablenumber-column" class="level1">
+<h1>Enhancing Power BI Slicers with the <code>CableNumber</code> Column</h1>
+<p><img src="sortingimage1.png" class="img-fluid"></p>
+<section id="tackling-slicer-sorting-challenges-in-power-bi" class="level2">
+<h2 class="anchored" data-anchor-id="tackling-slicer-sorting-challenges-in-power-bi">Tackling Slicer Sorting Challenges in Power BI</h2>
+<p>Welcome back, data adventures! In our previous posts, we ventured through the process of cleansing our fiber optic data in Power BI. In this part of our series, we delve into a nifty Power BI trick – transforming the <code>Identifier</code> column to ensure it sorts numerically in slicers. This involves creating a new <code>CableNumber</code> column with a clever formula in Power Query (M language).</p>
+</section>
+<section id="the-challenge-with-slicers" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge-with-slicers">The Challenge with Slicers</h2>
+<p>Our <code>Identifier</code> column, containing values like <code>Cable_Fiber1</code>, <code>Cable_Fiber2</code>, <code>Cable_Fiber3</code>, etc., appears to be in order. However, when we use this column as a slicer in Power BI for visual filtering, the sorting does not display numerically as expected. Instead, it follows an alphanumeric order, leading to a non-intuitive sequence like <code>Cable_Fiber1</code>, <code>Cable_Fiber10</code>, <code>Cable_Fiber100</code>, followed by <code>Cable_Fiber101</code>, and so on.</p>
+<p><img src="slicer1.png" class="img-fluid"></p>
+</section>
+<section id="creating-the-cablenumber-column-a-solution" class="level2">
+<h2 class="anchored" data-anchor-id="creating-the-cablenumber-column-a-solution">Creating the <code>CableNumber</code> Column: A Solution</h2>
+<p>To create a column that would allow for correct numerical sorting in our slicers, we used a formula in Power Query:</p>
+<p><code>= Table.AddColumn(#"Changed Type2", "CableNumber", each Number.FromText(Text.AfterDelimiter([Identifier], "Cable_Fiber")))</code></p>
+<p>Alternatively, to initiate the process of creating a custom column, we can simply click on the <code>Custom Column</code> icon in Power BI. This action leads us to a dialog where we input our formula, laying the groundwork for our new column.</p>
+<p><img src="addcustomcolumn.png" class="img-fluid"></p>
+<p>Once in the <code>custom column</code> creation interface, we enter our formula, setting the stage for the transformation we’re aiming to achieve.</p>
+<p><img src="CableNumberCreation.png" class="img-fluid"> This formula added a new column, <code>CableNumber</code>, by extracting and converting the numerical part from the <code>Identifier</code> column. Let’s break down the key functions used:</p>
+<p><strong><em>Text.AfterDelimiter</em></strong>: This function splits a text string based on a specified delimiter. In our case, it separates the text at <code>Cable_Fiber</code>, isolating the numeric part of our <code>Identifier</code> values.</p>
+<p><strong><em>Number.FromText</em></strong>: After isolating the numeric part, this function converts the text representation of a number into an actual numeric data type. This is crucial as it allows us to perform numerical operations and sorting.</p>
+<p>By combining these two functions, we effectively created a column of pure numbers, corresponding to each cable’s identifier.</p>
+<p><img src="10.png" class="img-fluid"></p>
+</section>
+<section id="implementing-numerical-sorting-in-slicers" class="level2">
+<h2 class="anchored" data-anchor-id="implementing-numerical-sorting-in-slicers">Implementing Numerical Sorting in Slicers</h2>
+<p>With the <code>CableNumber</code> column in place, our slicers in Power BI could now accurately sort the cables numerically, from <code>Cable_Fiber1</code> to <code>Cable_Fiber168</code>.</p>
+<section id="sorting-process" class="level3">
+<h3 class="anchored" data-anchor-id="sorting-process">Sorting Process:</h3>
+<p>Using the <code>Sort by Column</code> Feature: In Power BI Desktop, we right-clicked on the <code>Identifier</code> column and chose to sort it by our new <code>CableNumber</code> column.</p>
+<p><img src="slicer2.png" class="img-fluid"></p>
+<p>This adjustment brought a logical numerical order to our slicers, greatly enhancing user experience and data analysis accuracy.</p>
+<p><img src="slicer3.png" class="img-fluid"></p>
+</section>
+<section id="why-power-bi-over-tableau-for-this-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="why-power-bi-over-tableau-for-this-dataset">Why Power BI Over Tableau for This Dataset</h3>
+<p>For our specific dataset, involving 168 cables (336 entries including different wavelengths), Power BI’s advanced data transformation features were pivotal. Power BI provided the necessary tools for detailed data manipulation, perfectly catering to our business needs and dataset size.</p>
+</section>
+</section>
+</section>
+<section id="in-conclusion" class="level1">
+<h1>In Conclusion</h1>
+<p>As we draw close to the end of this exciting journey, I’d like to give you a glimpse into the final outcome – the Power BI dashboard that was the destination of all our data transformation efforts. These screenshots not only showcase the practical application of our work but also illustrate the power of effectively processed data in creating insightful and interactive visualizations.</p>
+<section id="dashboard-overview-screenshot" class="level3">
+<h3 class="anchored" data-anchor-id="dashboard-overview-screenshot">Dashboard Overview Screenshot</h3>
+<p><img src="dashboard1.png" class="img-fluid"> <img src="dashboard2.png" class="img-fluid"> <img src="dashboard.png" class="img-fluid"> Here’s the dashboard in its full glory, where each element and visual has been carefully crafted to provide meaningful insights. Notice how the data, now meticulously organized and sorted, comes to life, offering a clear and interactive experience.</p>
+</section>
+<section id="detailed-view-screenshot" class="level3">
+<h3 class="anchored" data-anchor-id="detailed-view-screenshot">Detailed View Screenshot</h3>
+<p><img src="detaileddashboard.png" class="img-fluid"></p>
+<p>Take a closer look at this specific section of the dashboard. It demonstrates how our sorted <code>Identifier</code> column, thanks to the <code>CableNumber</code> sorting, contributes to a more intuitive user interface in our slicers and visuals.</p>
+</section>
+<section id="reflecting-on-our-journey" class="level2">
+<h2 class="anchored" data-anchor-id="reflecting-on-our-journey">Reflecting on Our Journey</h2>
+<p>This visual representation is a testament to the importance of detailed data preparation. It underscores how strategic steps in data cleaning, sorting, and transformation directly contribute to the effectiveness of data visualization in tools like Power BI.</p>
+<p>Thank you for joining me on this enlightening journey through the field of data science and Power BI. I hope these insights and visuals inspire you to embark on your own data adventures, unlocking the stories hidden within your datasets.</p>
+<p>Stay tuned for more explorations and discoveries in the world of data science!</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

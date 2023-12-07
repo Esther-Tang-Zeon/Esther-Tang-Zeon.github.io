@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Data Stories by Esther Tang",
     "section": "",
-    "text": "From Data to Light: A Data Scientist’s Adventure Part 3 - Transforming the Column\n\n\n\n\n\n\nEsther Tang\n\n\nDec 2, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI\n\n\n\n\n\n\nEsther Tang\n\n\nNov 21, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 1\n\n\n\n\n\n\nEsther Tang\n\n\nNov 12, 2023\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI\n\n\n\n\n\n\nEsther Tang\n\n\nDec 2, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI\n\n\n\n\n\n\nEsther Tang\n\n\nNov 21, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 1\n\n\n\n\n\n\nEsther Tang\n\n\nNov 12, 2023\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -268,8 +268,43 @@
   {
     "objectID": "posts/ThirdBlog/index.html",
     "href": "posts/ThirdBlog/index.html",
-    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Transforming the Column",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI",
     "section": "",
-    "text": "Introduction"
+    "text": "Welcome back, data adventures! In our previous posts, we ventured through the process of cleansing our fiber optic data in Power BI. In this part of our series, we delve into a nifty Power BI trick – transforming the Identifier column to ensure it sorts numerically in slicers. This involves creating a new CableNumber column with a clever formula in Power Query (M language).\n\n\n\nOur Identifier column, containing values like Cable_Fiber1, Cable_Fiber2, Cable_Fiber3, etc., appears to be in order. However, when we use this column as a slicer in Power BI for visual filtering, the sorting does not display numerically as expected. Instead, it follows an alphanumeric order, leading to a non-intuitive sequence like Cable_Fiber1, Cable_Fiber10, Cable_Fiber100, followed by Cable_Fiber101, and so on.\n\n\n\n\nTo create a column that would allow for correct numerical sorting in our slicers, we used a formula in Power Query:\n= Table.AddColumn(#\"Changed Type2\", \"CableNumber\", each Number.FromText(Text.AfterDelimiter([Identifier], \"Cable_Fiber\")))\nAlternatively, to initiate the process of creating a custom column, we can simply click on the Custom Column icon in Power BI. This action leads us to a dialog where we input our formula, laying the groundwork for our new column.\n\nOnce in the custom column creation interface, we enter our formula, setting the stage for the transformation we’re aiming to achieve.\n This formula added a new column, CableNumber, by extracting and converting the numerical part from the Identifier column. Let’s break down the key functions used:\nText.AfterDelimiter: This function splits a text string based on a specified delimiter. In our case, it separates the text at Cable_Fiber, isolating the numeric part of our Identifier values.\nNumber.FromText: After isolating the numeric part, this function converts the text representation of a number into an actual numeric data type. This is crucial as it allows us to perform numerical operations and sorting.\nBy combining these two functions, we effectively created a column of pure numbers, corresponding to each cable’s identifier.\n\n\n\n\nWith the CableNumber column in place, our slicers in Power BI could now accurately sort the cables numerically, from Cable_Fiber1 to Cable_Fiber168.\n\n\nUsing the Sort by Column Feature: In Power BI Desktop, we right-clicked on the Identifier column and chose to sort it by our new CableNumber column.\n\nThis adjustment brought a logical numerical order to our slicers, greatly enhancing user experience and data analysis accuracy.\n\n\n\n\nFor our specific dataset, involving 168 cables (336 entries including different wavelengths), Power BI’s advanced data transformation features were pivotal. Power BI provided the necessary tools for detailed data manipulation, perfectly catering to our business needs and dataset size."
+  },
+  {
+    "objectID": "posts/ThirdBlog/index.html#tackling-slicer-sorting-challenges-in-power-bi",
+    "href": "posts/ThirdBlog/index.html#tackling-slicer-sorting-challenges-in-power-bi",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI",
+    "section": "",
+    "text": "Welcome back, data adventures! In our previous posts, we ventured through the process of cleansing our fiber optic data in Power BI. In this part of our series, we delve into a nifty Power BI trick – transforming the Identifier column to ensure it sorts numerically in slicers. This involves creating a new CableNumber column with a clever formula in Power Query (M language)."
+  },
+  {
+    "objectID": "posts/ThirdBlog/index.html#the-challenge-with-slicers",
+    "href": "posts/ThirdBlog/index.html#the-challenge-with-slicers",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI",
+    "section": "",
+    "text": "Our Identifier column, containing values like Cable_Fiber1, Cable_Fiber2, Cable_Fiber3, etc., appears to be in order. However, when we use this column as a slicer in Power BI for visual filtering, the sorting does not display numerically as expected. Instead, it follows an alphanumeric order, leading to a non-intuitive sequence like Cable_Fiber1, Cable_Fiber10, Cable_Fiber100, followed by Cable_Fiber101, and so on."
+  },
+  {
+    "objectID": "posts/ThirdBlog/index.html#creating-the-cablenumber-column-a-solution",
+    "href": "posts/ThirdBlog/index.html#creating-the-cablenumber-column-a-solution",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI",
+    "section": "",
+    "text": "To create a column that would allow for correct numerical sorting in our slicers, we used a formula in Power Query:\n= Table.AddColumn(#\"Changed Type2\", \"CableNumber\", each Number.FromText(Text.AfterDelimiter([Identifier], \"Cable_Fiber\")))\nAlternatively, to initiate the process of creating a custom column, we can simply click on the Custom Column icon in Power BI. This action leads us to a dialog where we input our formula, laying the groundwork for our new column.\n\nOnce in the custom column creation interface, we enter our formula, setting the stage for the transformation we’re aiming to achieve.\n This formula added a new column, CableNumber, by extracting and converting the numerical part from the Identifier column. Let’s break down the key functions used:\nText.AfterDelimiter: This function splits a text string based on a specified delimiter. In our case, it separates the text at Cable_Fiber, isolating the numeric part of our Identifier values.\nNumber.FromText: After isolating the numeric part, this function converts the text representation of a number into an actual numeric data type. This is crucial as it allows us to perform numerical operations and sorting.\nBy combining these two functions, we effectively created a column of pure numbers, corresponding to each cable’s identifier."
+  },
+  {
+    "objectID": "posts/ThirdBlog/index.html#implementing-numerical-sorting-in-slicers",
+    "href": "posts/ThirdBlog/index.html#implementing-numerical-sorting-in-slicers",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI",
+    "section": "",
+    "text": "With the CableNumber column in place, our slicers in Power BI could now accurately sort the cables numerically, from Cable_Fiber1 to Cable_Fiber168.\n\n\nUsing the Sort by Column Feature: In Power BI Desktop, we right-clicked on the Identifier column and chose to sort it by our new CableNumber column.\n\nThis adjustment brought a logical numerical order to our slicers, greatly enhancing user experience and data analysis accuracy.\n\n\n\n\nFor our specific dataset, involving 168 cables (336 entries including different wavelengths), Power BI’s advanced data transformation features were pivotal. Power BI provided the necessary tools for detailed data manipulation, perfectly catering to our business needs and dataset size."
+  },
+  {
+    "objectID": "posts/ThirdBlog/index.html#reflecting-on-our-journey",
+    "href": "posts/ThirdBlog/index.html#reflecting-on-our-journey",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 3 - Streamlining Data Sorting in Power BI",
+    "section": "Reflecting on Our Journey",
+    "text": "Reflecting on Our Journey\nThis visual representation is a testament to the importance of detailed data preparation. It underscores how strategic steps in data cleaning, sorting, and transformation directly contribute to the effectiveness of data visualization in tools like Power BI.\nThank you for joining me on this enlightening journey through the field of data science and Power BI. I hope these insights and visuals inspire you to embark on your own data adventures, unlocking the stories hidden within your datasets.\nStay tuned for more explorations and discoveries in the world of data science!"
   }
 ]

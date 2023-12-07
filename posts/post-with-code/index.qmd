@@ -58,7 +58,6 @@ To promote this row to headers, navigate to the `Transform` tab and select `Use 
 
 ![](setheader2.png)
 
-
 This simple action automatically updates the first row as your column titles.
 
 ![](RightHeaders.png)
