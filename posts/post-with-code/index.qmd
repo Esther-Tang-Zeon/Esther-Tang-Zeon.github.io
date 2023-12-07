@@ -10,7 +10,6 @@ date: "2023-11-21"
 
 # Navigating Data Cleansing in Power BI: A Step-by-Step Guide
 
-## Introduction 
 
 ![](blog2image.png)
 
