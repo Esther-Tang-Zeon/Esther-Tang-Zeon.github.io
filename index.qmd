@@ -1,10 +1,10 @@
 ---
-title: "Welcome to Esther Tang's Blog!"
+title: "Data Stories by Esther Tang"
 listing:
   contents: posts
   sort: "date desc"
-  type: default
-  categories: true
+  type: grid
+  categories: false
   sort-ui: false
   filter-ui: false
 page-layout: full

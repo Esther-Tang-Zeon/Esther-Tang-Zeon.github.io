@@ -9,9 +9,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Welcome to Esther Tang’s Blog!",
+    "title": "Data Stories by Esther Tang",
     "section": "",
-    "text": "From Data to Light: A Data Scientist’s Adventure Part 1\n\n\n\n\n\n\n\n\n\n\n\n\nDec 5, 2023\n\n\nEsther Tang\n\n\n\n\n\n\n  \n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI\n\n\n\n\n\n\n\n\n\n\n\n\nNov 12, 2023\n\n\nEsther Tang\n\n\n\n\n\n\nNo matching items"
+    "text": "From Data to Light: A Data Scientist’s Adventure Part 3\n\n\n\n\n\n\nEsther Tang\n\n\nDec 2, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI\n\n\n\n\n\n\nEsther Tang\n\n\nNov 21, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Data to Light: A Data Scientist’s Adventure Part 1\n\n\n\n\n\n\nEsther Tang\n\n\nNov 12, 2023\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -116,7 +116,7 @@
     "href": "posts/post-with-code/index.html#step-7-filtering-out-irrelevant-rows",
     "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
     "section": "Step 7: Filtering Out Irrelevant Rows",
-    "text": "Step 7: Filtering Out Irrelevant Rows\nWe filter out rows with identifiers that aren’t necessary for our analysis, such as test identifiers or default values that don’t hold actual test data.\n= Table.SelectRows(#\"Filled Down\", each ([Identifier] &lt;&gt; 1310 and [Identifier] &lt;&gt; 1550 and [Identifier] &lt;&gt; \"1310\" and [Identifier] &lt;&gt; \"1550\" and [Identifier] &lt;&gt; \"Default\" and [Identifier] &lt;&gt; \"Loopback\" and [Identifier] &lt;&gt; \"Pass/Fail Thresholds\" and [Identifier] &lt;&gt; \"Reference\" and [Identifier] &lt;&gt; \"Reference Method\" and [Identifier] &lt;&gt; \"Wavelength#(lf)(nm)\"))\n\nThe Table.SelectRows function is applied with a condition that excludes rows with certain Identifier values, cleaning up our dataset further."
+    "text": "Step 7: Filtering Out Irrelevant Rows\nThe next step involves scrolling to the bottom of your dataset and removing any rows that don’t contribute to your analysis. This step is often overlooked but is critical in ensuring the integrity of your data analysis. By removing these irrelevant rows, you prevent the inclusion of extraneous or erroneous data in your final analysis.\n Identify and exclude these unnecessary rows to keep your dataset focused and relevant."
   },
   {
     "objectID": "posts/post-with-code/index.html#step-8-transforming-column-types",
@@ -208,5 +208,61 @@
     "title": "From Data to Light: A Data Scientist’s Adventure Part 1",
     "section": "Wrapping Up",
     "text": "Wrapping Up\nSo, that’s the start of our journey into the world of fiber optics and data analysis. In my next post, I’ll dive into how we used Power BI for data cleansing. It’s a tale of transforming raw numbers into meaningful insights. Stay tuned!"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#step-2-selecting-the-right-dataset",
+    "href": "posts/post-with-code/index.html#step-2-selecting-the-right-dataset",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 2: Selecting the Right Dataset",
+    "text": "Step 2: Selecting the Right Dataset\nOnce the data is loaded, proceed by clicking on the Transform Data button. This opens the Power Query Editor, which is the main workspace for your data cleansing process.\n\nAt first glance, you may find the dataset to appear unstructured, with columns lacking meaningful titles and filled with null values. The objective here is to organize this chaos into a coherent and structured dataset."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#step-3-skipping-the-first-15-rows",
+    "href": "posts/post-with-code/index.html#step-3-skipping-the-first-15-rows",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 3: Skipping the First 15 Rows",
+    "text": "Step 3: Skipping the First 15 Rows\nThe first 15 rows of your dataset might include preliminary information that is not relevant to your analysis. Using the Remove Top Rows function, discard these rows to focus your analysis on the data that starts from row 17. This step is essential in ensuring that you are analyzing the data that truly matters for your insights.\n\n\n\nFirst 15 rows are irrelevant and need to be removed\n\n\n\n\n\nClick on Remove Top Rows icon\n\n\n\n\n\nInput the number of rows to be removed (15 rows in this case)"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#step-4-setting-headers",
+    "href": "posts/post-with-code/index.html#step-4-setting-headers",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 4: Setting Headers",
+    "text": "Step 4: Setting Headers\nBefore setting headers, evaluate your current data. Typically, the first row contains what should be the column headers.\n\nTo promote this row to headers, navigate to the Transform tab and select Use First Row as Headers. This action organizes your data, ensuring each column is correctly labeled for easier interpretation and analysis.\n\nThis simple action automatically updates the first row as your column titles."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#step-5-selecting-relevant-columns-for-further-analysis",
+    "href": "posts/post-with-code/index.html#step-5-selecting-relevant-columns-for-further-analysis",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 5: Selecting Relevant Columns for Further Analysis",
+    "text": "Step 5: Selecting Relevant Columns for Further Analysis\nWith the headers now accurately set, the next step involves focusing on the columns that are essential for your analysis. This process, achieved through the Remove Other Columns feature, is crucial for maintaining a streamlined and relevant dataset. By selecting only the columns you need, you avoid clutter and ensure that your analysis is based on pertinent data.\n\nSelect the columns you wish to retain, then use the Remove Other Columns button to exclude the rest. This targeted approach simplifies your dataset, leaving only the data that is truly significant for your analysis."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#step-6-filling-down-the-identifier-column",
+    "href": "posts/post-with-code/index.html#step-6-filling-down-the-identifier-column",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 6: Filling Down the Identifier Column",
+    "text": "Step 6: Filling Down the Identifier Column\nIn many datasets, especially those with multiple attributes for each entry, it’s common to find gaps or inconsistencies. In the Identifier column, you might notice null values appearing intermittently. To address this, use the Fill Down function. This ensures that each row in the Identifier column is consistently populated, maintaining accuracy and continuity in your dataset.\n After selecting the Fill option, choose Down to propagate the data correctly in the Identifier column.\n\nThis step results in a fully populated Identifier column, which is essential for accurate categorization and analysis."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#filtering-out-irrelevant-rows",
+    "href": "posts/post-with-code/index.html#filtering-out-irrelevant-rows",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Filtering Out Irrelevant Rows",
+    "text": "Filtering Out Irrelevant Rows\nScrolling to the bottom of your dataset, remove any irrelevant rows. This cleanup, often overlooked, is critical for ensuring the integrity of your data analysis. It prevents the inclusion of erroneous or irrelevant data in your final analysis."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#step-8-transforming-data-type",
+    "href": "posts/post-with-code/index.html#step-8-transforming-data-type",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 8: Transforming Data Type",
+    "text": "Step 8: Transforming Data Type\nIt’s essential to ensure that each column in your dataset reflects the correct data type. This step, which involves setting columns to appropriate data types such as text, numbers, or dates, is fundamental for accurate interpretation and analysis. For instance, the Identifier column should be set as text, while the Date/Time column should be a date/time data type. Correct data types are vital for processing and analyzing your data accurately.\n\nTo change the data type, right-click on the column title, such as Date/Time, and select the appropriate type. This ensures each column is processed correctly in subsequent analyses.\n\nP.S.: It’s advisable to transform the data types towards the end of the cleansing process, after you’ve gained a better understanding of what the data looks like and which data type each column should be. The data types should now appear correctly set for each column, ensuring accurate processing in Power BI."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#step-9-adding-a-cablenumber-column-to-be-covered-in-the-next-blog",
+    "href": "posts/post-with-code/index.html#step-9-adding-a-cablenumber-column-to-be-covered-in-the-next-blog",
+    "title": "From Data to Light: A Data Scientist’s Adventure Part 2 - Data Tidying with Power BI",
+    "section": "Step 9: Adding a CableNumber Column (To be covered in the next blog)",
+    "text": "Step 9: Adding a CableNumber Column (To be covered in the next blog)\nThe final step in our data cleansing journey, which involves adding a CableNumber column, will be thoroughly discussed in our next blog. This addition is crucial for creating slicers in Power BI dashboards, enhancing the functionality of your dataset for deeper, more granular analysis."
   }
 ]
