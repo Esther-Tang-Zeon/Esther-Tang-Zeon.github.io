@@ -1,8 +1,12 @@
 ---
-title: "From Data to Light: A Data Scientist's Adventure Part 3"
+title: "From Data to Light: A Data Scientist's Adventure Part 3 - Transforming the Column"
 author: "Esther Tang"
 date: "2023-12-02"
 ---
+
+# Introduction 
+
+
 
 
 
