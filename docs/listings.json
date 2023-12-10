@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/GoldmanSachsPortfolio/index.html",
       "/posts/ThirdBlog/index.html",
       "/posts/post-with-code/index.html",
       "/posts/FirstBlog/index.html"
